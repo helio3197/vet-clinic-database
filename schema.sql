@@ -17,3 +17,8 @@ id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 full_name varchar(100),
 age int
 );
+
+CREATE TABLE species (
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+name varchar(100)
+);
