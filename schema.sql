@@ -11,3 +11,9 @@ PRIMARY KEY (id)
 );
 
 ALTER TABLE animals ADD species varchar(100);
+
+CREATE TABLE owners (
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+full_name varchar(100),
+age int
+);
