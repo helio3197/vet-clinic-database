@@ -32,4 +32,9 @@ id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 name varchar(100),
 age int,
 date_of_graduation date
-)
+);
+
+CREATE TABLE specializations (
+vet_id int REFERENCES vets(id),
+species_id int REFERENCES species(id)
+);
