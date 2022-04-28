@@ -61,3 +61,11 @@ GROUP BY species;
 /* What is the average number of escape attempts per animal type of those born between 1990 and 2000? */
 SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31'
 GROUP BY species;
+
+/* What animals belong to Melody Pond? */
+SELECT name, full_name AS owner FROM animals JOIN owners ON animals.owner_id = owners.id
+WHERE full_name = 'Melody Pond';
+
+/* List of all animals that are pokemon (their type is Pokemon). */
+SELECT animals.name, species.name AS species FROM animals JOIN species ON species_id = species.id
+WHERE species.name = 'Pokemon';
