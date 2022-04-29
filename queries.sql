@@ -93,3 +93,29 @@ GROUP BY full_name HAVING COUNT(animals.name) = (SELECT MAX(sub_table.count) FRO
   SELECT COUNT(animals.name) AS count FROM animals JOIN owners ON owner_id = owners.id
   GROUP BY full_name) sub_table
 );
+
+/* Who was the last animal seen by William Tatcher? */
+SELECT animals.name, vets.name AS vet_name, visit_date FROM visits
+JOIN animals ON animal_id = animals.id JOIN vets ON vet_id = vets.id
+WHERE vet_id = (SELECT id FROM vets WHERE name = 'William Tatcher')
+ORDER BY visit_date DESC LIMIT 1;
+
+/* How many different animals did Stephanie Mendez see? */
+SELECT V.name AS vet_name, (
+  SELECT COUNT(*) FROM (
+    SELECT vet_id, animal_id FROM visits GROUP BY vet_id, animal_id
+  ) sub_table GROUP BY vet_id HAVING vet_id = V.id) AS animal_count
+FROM visits JOIN animals ON animal_id = animals.id JOIN vets V ON vet_id = V.id
+GROUP BY vet_name, V.id HAVING V.name = 'Stephanie Mendez';
+
+/* Alternate solution */
+SELECT V.name AS vet_name, Q.animal_count
+FROM visits Vi
+JOIN animals ON Vi.animal_id = animals.id
+JOIN vets V ON Vi.vet_id = V.id
+LEFT JOIN (
+  SELECT COUNT(*) AS animal_count, vet_id FROM (
+    SELECT vet_id, animal_id FROM visits GROUP BY vet_id, animal_id
+  ) sub_table GROUP BY vet_id
+) Q ON Q.vet_id = V.id
+GROUP BY vet_name, Q.animal_count HAVING V.name = 'Stephanie Mendez';
