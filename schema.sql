@@ -45,3 +45,11 @@ vet_id int REFERENCES vets(id),
 animal_id int REFERENCES animals(id),
 visit_date date
 );
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX visits_animal_id_asc ON visits (animal_id ASC);
+
+CREATE INDEX visits_vet_id_asc ON visits (vet_id) INCLUDE (id, animal_id, visit_date);
+
+CREATE INDEX owners_email_asc ON owners (email ASC);
