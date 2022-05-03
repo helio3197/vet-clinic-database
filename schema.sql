@@ -45,3 +45,5 @@ vet_id int REFERENCES vets(id),
 animal_id int REFERENCES animals(id),
 visit_date date
 );
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
