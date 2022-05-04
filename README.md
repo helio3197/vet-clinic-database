@@ -2,6 +2,10 @@
 
 > A database model for a Vet Clinic.
 
+## Database schema
+
+![schema](./vet_clinic.png)
+
 
 ## Getting Started
 
